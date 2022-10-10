@@ -1,11 +1,11 @@
 import {
   HomeIcon,
   HeartIcon,
-  BuildingLibraryIcon,
+  LibraryIcon,
   PlusCircleIcon,
   RssIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
+  SearchIcon,
+} from "@heroicons/react/outline";
 import { usePlayListContext } from "../contexts/PlayListContext";
 import useSpotify from "../hooks/useSpotify";
 import IconButton from "./IconButton";
@@ -33,8 +33,8 @@ const Sidebar = () => {
     <div className="text-gray-500 px-5 pt-5 pb-36 text-xs lg:text-sm border-r border-gray-900 h-screen overflow-y-auto sm:max-w-[12rem] lg:max-w-[15rem] hidden md:block scrollbar-hidden">
       <div className="space-y-4">
         <IconButton icon={HomeIcon} label="Home" />
-        <IconButton icon={MagnifyingGlassIcon} label="Search" />
-        <IconButton icon={BuildingLibraryIcon} label="Your Library" />
+        <IconButton icon={SearchIcon} label="Search" />
+        <IconButton icon={LibraryIcon} label="Your Library" />
 
         <Divider />
 

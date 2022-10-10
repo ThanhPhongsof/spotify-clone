@@ -2,7 +2,7 @@ import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import { usePlayListContext } from "../contexts/PlayListContext";
 import UserIcon from "../assets/user.png";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import { pickRandom } from "../utils/pickRandom";
 import ListMusic from "./ListMusic";
@@ -69,7 +69,7 @@ const Center = () => {
         )}
       </section>
       <div className="songs">
-        <ListMusic/>
+        <ListMusic />
       </div>
     </div>
   );

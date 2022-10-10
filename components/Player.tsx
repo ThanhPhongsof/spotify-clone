@@ -1,12 +1,12 @@
 import {
-  ArrowPathIcon,
-  ArrowsRightLeftIcon,
-  BackwardIcon,
-  ForwardIcon,
-  PauseCircleIcon,
-  PlayCircleIcon,
-  SpeakerWaveIcon,
-} from "@heroicons/react/24/solid";
+	FastForwardIcon,
+	PauseIcon,
+	PlayIcon,
+	ReplyIcon,
+	RewindIcon,
+	SwitchHorizontalIcon,
+	VolumeUpIcon
+} from '@heroicons/react/solid'
 import Image from "next/image";
 import { ChangeEventHandler } from "react";
 import { useDebouncedCallback } from "use-debounce";
@@ -108,30 +108,30 @@ const Player = () => {
 
       {/* Center */}
       <div className="flex items-center justify-evenly">
-        <ArrowsRightLeftIcon className="icon-playback" />
-        <BackwardIcon
+        <SwitchHorizontalIcon className="icon-playback" />
+        <RewindIcon
           className="icon-playback"
           onClick={handleSkipMusic.bind(this, "previous")}
         />
         {isPlaying ? (
-          <PauseCircleIcon
+          <PauseIcon
             className="icon-playback"
             onClick={handlePlayPause}
           />
         ) : (
-          <PlayCircleIcon className="icon-playback" onClick={handlePlayPause} />
+          <PlayIcon className="icon-playback" onClick={handlePlayPause} />
         )}
-        <ForwardIcon
+        <FastForwardIcon
           className="icon-playback"
           onClick={handleSkipMusic.bind(this, "next")}
         />
-        <ArrowPathIcon className="icon-playback" />
+        <ReplyIcon className="icon-playback" />
       </div>
       {/* End Center */}
 
       {/* Right */}
       <div className="flex justify-end items-center pr-5 space-x-3 md:space-x-4">
-        <SpeakerWaveIcon className="icon-playback" />
+        <VolumeUpIcon className="icon-playback" />
         <input
           type="range"
           min={0}
