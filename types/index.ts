@@ -1,5 +1,6 @@
 import { Session, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
+import { Dispatch } from "react";
 
 export enum TokenError {
   RefreshAccessTokenError = "RefreshAccessTokenError",
@@ -38,7 +39,7 @@ export interface IMusic {
 
 export interface IMusicContextState {
   selectedMusicId?: string;
-  selectedMusic: any | null;
+  selectedMusic: SpotifyApi.TrackObjectFull | null;
   isPlaying: boolean;
   volume: number;
   deviceId: string | null;
@@ -46,13 +47,33 @@ export interface IMusicContextState {
 
 export interface IMusicContext {
   musicContextState: IMusicContextState;
+  dispatchMusicAction: Dispatch<MusicReducerAction>;
 }
 
 export enum MusicReducerActionType {
   SetDevice = "SetDevice",
+  ToggleIsPlaying = "ToggleIsPlaying",
+  SetCurrentPlayingMusic = "SetCurrentPlayingMusic",
+  SetVolume = "SetVolume",
 }
 
-export type MusicReducerAction = {
-  type: MusicReducerActionType.SetDevice;
-  payload: Pick<IMusicContextState, "deviceId" | "volume">;
-};
+export type MusicReducerAction =
+  | {
+      type: MusicReducerActionType.SetDevice;
+      payload: Pick<IMusicContextState, "deviceId" | "volume">;
+    }
+  | {
+      type: MusicReducerActionType.ToggleIsPlaying;
+      payload: boolean;
+    }
+  | {
+      type: MusicReducerActionType.SetCurrentPlayingMusic;
+      payload: Pick<
+        IMusicContextState,
+        "selectedMusicId" | "selectedMusic" | "isPlaying"
+      >;
+    }
+  | {
+      type: MusicReducerActionType.SetVolume;
+      payload: number;
+    };

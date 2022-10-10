@@ -1,12 +1,48 @@
 import Image from "next/image";
-import { IMusic } from "../types";
+import { useMusicContext } from "../contexts/MusicContext";
+import { usePlayListContext } from "../contexts/PlayListContext";
+import useSpotify from "../hooks/useSpotify";
+import { IMusic, MusicReducerActionType } from "../types";
 import { convertDuration } from "../utils/convertDuration";
 
 const Music = ({ item: { track }, itemIndex }: IMusic) => {
-  console.log(track);
+  const spotifyApi = useSpotify();
+
+  const {
+    musicContextState: { deviceId },
+    dispatchMusicAction,
+  } = useMusicContext();
+
+  const {
+    playlistContextState: { selectedPlayList },
+  } = usePlayListContext();
+
+  const playMusic = async () => {
+    if (!deviceId) return;
+
+    dispatchMusicAction({
+      type: MusicReducerActionType.SetCurrentPlayingMusic,
+      payload: {
+        selectedMusicId: track?.id,
+        selectedMusic: track,
+        isPlaying: true,
+      },
+    });
+
+    await spotifyApi.play({
+      device_id: deviceId,
+      context_uri: selectedPlayList?.uri,
+      offset: {
+        uri: track?.uri as string,
+      },
+    });
+  };
 
   return (
-    <div className="grid grid-cols-2 text-gray-500 px-5 py-4 hover:bg-gray-900 rounded-lg cursor-pointer">
+    <div
+      className="grid grid-cols-2 text-gray-500 px-5 py-4 hover:bg-gray-900 rounded-lg cursor-pointer"
+      onClick={playMusic}
+    >
       <div className="flex items-center space-x-4">
         <p>{itemIndex + 1}</p>
         <div className="">
